@@ -1,0 +1,20 @@
+<mat-form-field class="address-autocomplete" appearance="fill" fxFlexFill>
+  <mat-label>{{ label || 'Search address' }}</mat-label>
+  <input type="text"
+    aria-label="Search address"
+    matInput
+    [(ngModel)]="search"
+    [formControl]="addressAutocompleteControl"
+    [matAutocomplete]="auto">
+
+  <mat-autocomplete #auto="matAutocomplete"
+    [displayWith]="getAutocompleteDisplayText"
+    (optionSelected)='onAddressSelected($event.option.value)'>
+    <mat-option *ngFor="let address of addresses | async" [value]="address">
+      {{ address.formatted_address }}
+    </mat-option>
+  </mat-autocomplete>
+
+  <mat-progress-bar mode="indeterminate" style="padding-top: 6px;"
+    *ngIf="search != '' && isSearching"></mat-progress-bar>
+</mat-form-field>
