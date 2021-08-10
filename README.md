@@ -1,6 +1,6 @@
 # Stores web interface
 
-[![CircleCI](https://circleci.com/gh/h-vsble/stores-front/tree/master.svg?style=shield)](https://circleci.com/gh/h-vsble/stores-front/tree/master)
+[![CircleCI](https://circleci.com/gh/h-vsble/stores-web/tree/master.svg?style=shield)](https://circleci.com/gh/h-vsble/stores-web/tree/master)
 
 ## Running
 
