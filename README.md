@@ -1,6 +1,6 @@
 # Stores web interface
 
-[![CircleCI](https://circleci.com/gh/h-vsble/stores-api/tree/master.svg?style=shield&circle-token=06387355d375bce0f9b540e45431484cb5df6875)](https://circleci.com/gh/h-vsble/stores-api/tree/master)
+[![CircleCI](https://circleci.com/gh/h-vsble/stores-front/tree/master.svg?style=shield)](https://circleci.com/gh/h-vsble/stores-front/tree/master)
 
 ## Running
 
@@ -8,8 +8,8 @@ Edit `src/environments/environments.ts` to change the app's default values.
 
 Run `npm install`.
 
-Run `npm start` in order to run the app.
+Run `npm start` and go to `http://localhost:4200` (or check the terminal output).
 
 ## Testing
 
-Run `npm run test` or `npm run test:coverage`.
+Run `npm run test`.
