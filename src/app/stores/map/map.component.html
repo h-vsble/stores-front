@@ -1,0 +1,76 @@
+<div class="map-component" fxLayout="row" fxLayoutAlign="start start" fxFlexFill>
+  <mat-sidenav-container>
+
+    <mat-sidenav #snav [mode]="'side'"
+      position="end"
+      opened="false"
+      (openedStart)="isSideNavOpen = true"
+      (closedStart)="isSideNavOpen = false">
+
+      <div class="map-component__div-list mdc-bg-grey-100">
+        <mat-toolbar color="accent">
+          <button mat-icon-button fxHide.gt-sm
+            (click)="snav.toggle()">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+
+          <span>Stores</span>
+        </mat-toolbar>
+
+        <div class="map-component__div-search" fxLayout="column" fxLayoutAlign="start">
+          <div class="map-component__div-input-search" fxLayout="row" fxLayoutAlign="center">
+            <address-autocomplete [label]="'Search stores'" (addressSelected)="getStores($event)" fxFlexFill></address-autocomplete>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start start" fxFlexFill>
+          <stores-list [stores]="stores" (storeClicked)="onStoreClick($event)" *ngIf="!isSearching"></stores-list>
+
+          <div class="div-loading" fxLayout="row" fxLayoutAlign="center center"
+            *ngIf="isSearching">
+            <div class="div-loading__div-spinner">
+              <mat-spinner diameter="20"></mat-spinner>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="map-component__div-map">
+        <div class="map-component__div-background-search"
+          *ngIf="!isInitialized"></div>
+
+        <g-maps #gMaps
+          [markers]=storeMarkers
+          [center]=mapConfig.center
+          [zoom]=mapConfig.zoom
+          fxFlex="100"
+          ></g-maps>
+
+        <div class="map-component__sidenav-button-toggle-float">
+          <button mat-mini-fab color="accent"
+            (click)="snav.toggle()"
+            *ngIf="!isSideNavOpen && isInitialized">
+            <mat-icon>store</mat-icon>
+          </button>
+        </div>
+
+        <div class="map-component__div-search-float"
+          *ngIf="!isSideNavOpen && !isInitialized"
+          fxLayout="row" fxLayoutAlign="center">
+          <div class="map-component__div-input-search-float" fxLayout="row" fxLayoutAlign="center">
+            <address-autocomplete [label]="'Type to search the stores'" (addressSelected)="getStores($event)" fxFlexFill></address-autocomplete>
+          </div>
+        </div>
+
+        <div class="div-loading" fxLayout="row" fxLayoutAlign="center center"
+          *ngIf="isSearching">
+          <div class="div-loading__div-spinner">
+            <mat-spinner diameter="50"></mat-spinner>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

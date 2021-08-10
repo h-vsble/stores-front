@@ -1,0 +1,18 @@
+<div class="g-maps-component" *ngIf="apiLoaded | async">
+  <div class="g-maps-component__div-map">
+    <google-map
+      [center]="center"
+      [zoom]="zoom"
+      [options]="mapOptions">
+      <map-marker #marker="mapMarker"
+        *ngFor="let markerObject of markers"
+        [position]="markerObject"
+        [options]="markerObject"
+        (mapClick)="openInfoWindow(marker, markerObject.infoWindowContent)">
+        <map-info-window>
+          <div [innerHtml]="infoWindowContent"></div>
+        </map-info-window>
+      </map-marker>
+    </google-map>
+  </div>
+</div>
