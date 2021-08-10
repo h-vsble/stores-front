@@ -1,0 +1,37 @@
+<div class="list-component"
+  *ngIf="stores.length > 0"
+  fxLayout="column" fxLayoutAlign="start" fxFlexFill>
+  <mat-list role="list">
+    <mat-list-item *ngFor="let store of stores"
+      (click)="onStoreClick(store)"
+      fxLayout="column" fxLayoutAlign="start">
+
+      <div fxFlex="85">
+        <h3 class="list-component__item-title mat-title" matLine>
+          {{ store.addressName }}
+        </h3>
+
+        <p class="list-component__item-address" matLine>
+          {{ store.formattedAddress }}
+        </p>
+
+        <span class="mdc-text-green-400" matLine *ngIf="store.collectionPoint">
+          <mat-icon class="list-component__collection-point-icon" aria-hidden="false" aria-label="Collection Point">done</mat-icon>
+          <em>
+            Collection Point
+          </em>
+        </span>
+      </div>
+
+      <div fxFlex="15">
+        <span fxLayout="column" fxLayoutAlign="start end">
+          <p class="mat-body mdc-text-green-400" matLine
+            *ngIf="store.isOpen">
+            {{ store.todayOpen }}
+          </p>
+          <p class="mat-body mdc-text-red-400" matLine>{{ store.todayClose }}</p>
+        </span>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
