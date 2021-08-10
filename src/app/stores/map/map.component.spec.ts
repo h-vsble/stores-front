@@ -37,7 +37,7 @@ describe('StoresMapComponent', () => {
       let mapComponent;
       let stores;
 
-      beforeAll(() => {
+      beforeEach(() => {
         stores = [{
           latitude  : 10,
           longitude : 15
@@ -73,7 +73,7 @@ describe('StoresMapComponent', () => {
     describe('when `stores` has no itens', () => {
       let mapComponent;
 
-      beforeAll(() => {
+      beforeEach(() => {
         mapComponent = getTestComponent();
 
         mapComponent.setMarkers([])
