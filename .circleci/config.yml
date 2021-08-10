@@ -1,0 +1,71 @@
+version: 2
+
+jobs:
+  checkout_code:
+    working_directory: /home/circleci/stores-front
+
+    docker:
+      - image: circleci/node:12-browsers
+
+    steps:
+      - checkout
+
+      - save_cache:
+          key   : repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths :
+            - ./
+
+  node_dependencies:
+    working_directory: /home/circleci/stores-front
+
+    docker:
+      - image: circleci/node:12-browsers
+
+    steps:
+      - restore_cache:
+          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+
+      - restore_cache:
+          key: node-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package.json" }}
+
+      - run:
+          name    : Installing npm dependencies
+          command : npm install
+
+      - save_cache:
+          key   : node-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package.json" }}
+          paths :
+            - ./node_modules
+
+  tests:
+    working_directory: /home/circleci/stores-front
+
+    docker:
+      - image: circleci/node:12-browsers
+
+    steps:
+
+      - restore_cache:
+          key: repo-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+
+      - restore_cache:
+          key: node-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package.json" }}
+
+      - run:
+          name    : Running tests
+          command : npm run test:silent
+
+workflows:
+  version: 2
+
+  build-and-deploy:
+    jobs:
+      - checkout_code
+
+      - node_dependencies:
+          requires:
+            - checkout_code
+
+      - tests:
+          requires:
+            - node_dependencies
